@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>El Taconazo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:'Poppins',sans-serif;
+}
+
+header{
+text-align:center;
+padding:50px 20px;
+}
+
+header h1{
+font-family:'Cinzel',serif;
+font-size:50px;
+color:#d4af37;
+letter-spacing:4px;
+}
+
+header p{
+color:#ccc;
+font-size:18px;
+margin-top:10px;
+}
+
+
+.menu{
+max-width:800px;
+margin:40px auto;
+background:#181818;
+padding:35px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(212,175,55,.25);
+}
+
+
+.menu h2{
+color:#d4af37;
+font-family:'Cinzel',serif;
+border-bottom:2px solid #d4af37;
+padding-bottom:10px;
+margin-bottom:20px;
+}
+
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:18px 0;
+border-bottom:1px solid #333;
+font-size:20px;
+}
+
+
+.precio{
+color:#d4af37;
+font-weight:bold;
+}
+
+
+.boton{
+display:inline-block;
+background:#25D366;
+color:white;
+padding:16px 40px;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
+}
+
+
+footer{
+text-align:center;
+padding:40px 20px;
+}
+
+
+footer p{
+color:#d4af37;
+font-size:18px;
+margin-bottom:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<h1>EL TACONAZO</h1>
+
+<p>Calidad • Sabor • Tradición</p>
+
+</header>
+
+
+<section class="menu">
+
+
+<h2>Promoción</h2>
+
+<div class="item">
+<span>Combo Martes</span>
+<span class="precio">$90</span>
+</div>
+
+
+<div class="item">
+<span>1 Torta de Pastor + 3 Tacos de Birria + 1 Refresco</span>
+</div>
+
+
+
+<h2 style="margin-top:40px;">Tacos</h2>
+
+
+<div class="item">
+<span>Pastor</span>
+<span class="precio">$16</span>
+</div>
+
+
+<div class="item">
+<span>Birria de Res</span>
+<span class="precio">$16</span>
+</div>
+
+
+
+<h2 style="margin-top:40px;">Tortas</h2>
+
+
+<div class="item">
+<span>Pastor</span>
+<span class="precio">$40</span>
+</div>
+
+
+<div class="item">
+<span>Birria de Res</span>
+<span class="precio">$40</span>
+</div>
+
+
+
+<h2 style="margin-top:40px;">Próximamente</h2>
+
+
+<div class="item">
+<span>Más productos...</span>
+</div></section>
+
+<section id="juegos">
+
+<style>
+
+#juegos{
+max-width:800px;
+margin:40px auto;
+background:#181818;
+padding:30px;
+border-radius:20px;
+text-align:center;
+}
+
+#zonaJuego,
+#zonaReto{
+height:500px;
+background:#222;
+border-radius:20px;
+position:relative;
+overflow:hidden;
+margin-top:20px;
+}
+
+#taco,
+#tacoReto{
+position:absolute;
+font-size:55px;
+background:none;
+border:none;
+cursor:pointer;
+}
+
+#botonReto{
+margin:25px;
+padding:15px 25px;
+background:#d4af37;
+color:black;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#juegos h2{
+color:#d4af37;
+}
+
+</style>
+
+
+<h2>🌮 Atrapa el Taco</h2>
+
+<p>
+Puntos:
+<span id="puntos">0</span>
+</p>
+
+
+<div id="zonaJuego">
+<button id="taco">🌮</button>
+</div>
+
+
+<p id="mensaje"></p>
+
+
+
+<button id="botonReto" onclick="abrirReto()">
+🔥 Segundo Reto Taconazo
+</button>
+
+
+
+<div id="reto" style="display:none;">
+
+
+<h2>⏱️ Segundo Reto</h2>
+
+
+<p>
+Puntos:
+<span id="puntosReto">0</span>
+</p>
+
+
+<p>
+Tiempo:
+<span id="tiempoReto">30</span>
+</p>
+
+
+
+<div id="zonaReto">
+<button id="tacoReto">🌮</button>
+</div>
+
+
+<p id="mensajeReto"></p>
+
+
+</div>
+
+
+
+<script>
+
+// JUEGO 1
+
+let puntos=0;
+
+let taco=document.getElementById("taco");
+
+let zona=document.getElementById("zonaJuego");
+
+
+function moverTaco(){
+
+let x=Math.random()*(zona.clientWidth-60);
+
+let y=Math.random()*(zona.clientHeight-60);
+
+taco.style.left=x+"px";
+
+taco.style.top=y+"px";
+
+}
+
+
+taco.onclick=function(e){
+
+e.stopPropagation();
+
+puntos++;
+
+document.getElementById("puntos").innerHTML=puntos;
+
+moverTaco();
+
+}
+
+
+
+zona.onclick=function(){
+
+document.getElementById("mensaje").innerHTML="💀 Perdiste";
+
+taco.disabled=true;
+
+}
+
+
+moverTaco();
+
+
+
+
+// JUEGO 2
+
+let puntosReto=0;
+
+let tiempoReto=30;
+
+let activo=false;
+
+let reloj=null;
+
+
+let tacoReto=document.getElementById("tacoReto");
+
+let zonaReto=document.getElementById("zonaReto");
+
+
+
+function moverReto(){
+
+let x=Math.random()*(zonaReto.clientWidth-60);
+
+let y=Math.random()*(zonaReto.clientHeight-60);
+
+tacoReto.style.left=x+"px";
+
+tacoReto.style.top=y+"px";
+
+}
+
+
+
+function abrirReto(){
+
+document.getElementById("reto").style.display="block";
+
+document.getElementById("botonReto").style.display="none";
+
+
+activo=true;
+
+tiempoReto=30;
+
+puntosReto=0;
+
+
+document.getElementById("puntosReto").innerHTML=0;
+
+document.getElementById("tiempoReto").innerHTML=30;
+
+
+clearInterval(reloj);
+
+
+reloj=setInterval(function(){
+
+
+tiempoReto--;
+
+
+document.getElementById("tiempoReto").innerHTML=tiempoReto;
+
+
+
+if(tiempoReto<=0){
+
+activo=false;
+
+clearInterval(reloj);
+
+
+document.getElementById("mensajeReto").innerHTML=
+
+"🔥 Terminaste con "+puntosReto+" puntos 🌮";
+
+}
+
+
+},1000);
+
+
+
+setTimeout(function(){
+
+moverReto();
+
+},100);
+
+
+}
+
+
+
+tacoReto.onclick=function(){
+
+if(activo){
+
+puntosReto++;
+
+document.getElementById("puntosReto").innerHTML=puntosReto;
+
+moverReto();
+
+}
+
+}
+
+
+</script>
+
+</section><section id="ranking">
+
+<style>
+
+#ranking{
+max-width:800px;
+margin:40px auto;
+background:#181818;
+padding:30px;
+border-radius:20px;
+text-align:center;
+}
+
+#ranking h2{
+color:#d4af37;
+}
+
+#nombreJugador{
+padding:12px;
+border-radius:10px;
+border:none;
+margin:15px;
+}
+
+#ranking button{
+padding:12px 25px;
+background:#d4af37;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#listaRanking{
+margin-top:20px;
+text-align:left;
+}
+
+</style>
+
+
+
+<h2>🏆 Top 30 Global Taconazo</h2>
+
+
+<input id="nombreJugador" placeholder="Escribe tu nombre">
+
+
+<br>
+
+
+<button onclick="guardarPuntuacion()">
+Guardar puntuación
+</button>
+
+
+
+<ol id="listaRanking"></ol>
+
+
+</section>
+
+
+
+
+<script>
+
+let ranking = JSON.parse(localStorage.getItem("topTaconazo")) || [];
+
+
+
+function guardarPuntuacion(){
+
+
+let nombre=document
+.getElementById("nombreJugador")
+.value
+.trim();
+
+
+
+let bloqueadas=[
+
+"popo",
+"tonto",
+"idiota",
+"pendejo",
+"grosero",
+"malo"
+
+];
+
+
+
+for(let palabra of bloqueadas){
+
+if(nombre.toLowerCase().includes(palabra)){
+
+alert("Ese nombre no está permitido");
+
+return;
+
+}
+
+}
+
+
+
+if(nombre==""){
+
+nombre="Cliente";
+
+}
+
+
+
+let puntosJugador=Math.max(puntos,puntosReto);
+
+
+
+if(puntosJugador<=0){
+
+alert("Juega primero para guardar puntos");
+
+return;
+
+}
+
+
+
+ranking.push({
+
+nombre:nombre,
+
+puntos:puntosJugador
+
+});
+
+
+
+ranking.sort(function(a,b){
+
+return b.puntos-a.puntos;
+
+});
+
+
+
+ranking=ranking.slice(0,30);
+
+
+
+localStorage.setItem(
+
+"topTaconazo",
+
+JSON.stringify(ranking)
+
+);
+
+
+
+mostrarRanking();
+
+}
+
+
+
+
+function mostrarRanking(){
+
+
+let lista=document.getElementById("listaRanking");
+
+
+lista.innerHTML="";
+
+
+
+ranking.forEach(function(jugador,index){
+
+
+let medalla="🌮";
+
+
+if(index==0){
+
+medalla="🥇";
+
+}
+
+else if(index==1){
+
+medalla="🥈";
+
+}
+
+else if(index==2){
+
+medalla="🥉";
+
+}
+
+
+
+lista.innerHTML +=
+
+"<li>"+
+
+medalla+" "+
+
+jugador.nombre+
+
+" - "+
+
+jugador.puntos+
+
+" puntos</li>";
+
+
+
+});
+
+
+}
+
+
+
+mostrarRanking();
+
+
+</script>
+
+
+
+
+
+<footer>
+
+
+<p>
+¡Haz tu pedido ahora!
+</p>
+
+
+
+<a class="boton" href="https://wa.me/524361082946?text=Hola,%20quiero%20hacer%20un%20pedido%20de%20El%20Taconazo">
+
+Pedir por WhatsApp
+
+</a>
+
+
+
+</footer>
+
+
+</body>
+</html>
